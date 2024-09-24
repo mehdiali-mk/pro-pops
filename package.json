@@ -1,0 +1,18 @@
+{
+  "name": "pro-pops",
+  "version": "1.0.0",
+  "description": "Pro-Pops is a comprehensive real estate platform that allows users to explore a wide range of properties available for sale or rent. Built using the MERN stack (MongoDB, Express.js, React, and Node.js), this web application delivers a seamless experience for both property buyers, renters, and sellers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.6.3"
+  }
+}
