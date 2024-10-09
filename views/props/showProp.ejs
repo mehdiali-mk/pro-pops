@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Show Prop</title>
+  </head>
+  <body>
+    <h3>Property Details:</h3>
+    <a href="/props/<%= prop._id %>/edit">Edit </a>
+    <form action="/props/<%= prop._id %>?_method=DELETE" method="post">
+      <button type="submit">Delete</button>
+    </form>
+    <ul>
+      <li><%= prop.title%></li>
+      <li><%= prop.description%></li>
+      <li>₹ <%= prop.price.toLocaleString("en-IN")%></li>
+      <li><%= prop.location%></li>
+      <li><%= prop.country%></li>
+      <li><img src="<%= prop.image %>" alt="Property Image" /></li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Property</title>
+  </head>
+  <body>
+    <h1>Edit Property:</h1>
+    <form action="/props/<%= prop._id %>?_method=PUT" method="post">
+      <input
+        type="text"
+        name="prop[title]"
+        id="title"
+        value="<%= prop.title %>"
+      />
+      <br /><br />
+      <textarea
+        name="prop[description]"
+        id="description"
+        placeholder="Enter the description"
+      >
+<%= prop.description %></textarea
+      >
+      <br /><br />
+      <input
+        type="text"
+        name="prop[image]"
+        id="image"
+        placeholder="Enter image URL/Link"
+        value="<%= prop.image %>"
+      />
+      <br /><br />
+      <input
+        type="number"
+        name="prop[price]"
+        id="price"
+        placeholder="Enter the price"
+        value="<%= prop.price %>"
+      />
+      <br /><br />
+      <input
+        type="text"
+        name="prop[location]"
+        id="location"
+        placeholder="Enter the location"
+        value="<%= prop.location %>"
+      />
+      <br /><br />
+      <input
+        type="text"
+        name="prop[country]"
+        id="country"
+        placeholder="Enter the country"
+        value="<%= prop.country %>"
+      />
+      <br /><br />
+      <button type="submit">Update</button>
+      <button type="reset">Cancel</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Property</title>
+  </head>
+  <body>
+    <h1>Add new Property:</h1>
+    <form action="/props" method="post">
+      <input
+        type="text"
+        name="prop[title]"
+        id="title"
+        placeholder="Enter the title"
+      />
+      <br /><br />
+      <textarea
+        name="prop[description]"
+        id="description"
+        placeholder="Enter the description"
+      ></textarea>
+      <br /><br />
+      <input
+        type="text"
+        name="prop[image]"
+        id="image"
+        placeholder="Enter image URL/Link"
+      />
+      <br /><br />
+      <input
+        type="number"
+        name="prop[price]"
+        id="price"
+        placeholder="Enter the price"
+      />
+      <br /><br />
+      <input
+        type="text"
+        name="prop[location]"
+        id="location"
+        placeholder="Enter the location"
+      />
+      <br /><br />
+      <input
+        type="text"
+        name="prop[country]"
+        id="country"
+        placeholder="Enter the country"
+      />
+      <br /><br />
+      <button type="submit">Add</button>
+      <button type="reset">Cancel</button>
+    </form>
+  </body>
+</html>

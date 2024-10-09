@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const path = require("path");
 const methodOverride = require("method-override");
 const Props = require("./models/props.js");
+const Prop = require("./models/props.js");
+const ejsMate = require("ejs-mate");
 
 const MONGOOSE_URL = "mongodb://127.0.0.1:27017/pops";
 
@@ -20,27 +22,78 @@ async function main() {
   await mongoose.connect(MONGOOSE_URL);
 }
 
+app.set("view engine", "ejs");
+app.set("/views", path.join(__dirname + "views"));
+app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride("_method"));
+app.engine("ejs", ejsMate);
+app.use(express.static(path.join(__dirname + "/public")));
+
+//* Home Route
 app.get("/", (request, response) => {
-  response.send("Welcome! To home");
+  response.redirect("/props");
 });
 
-app.get("/test", async (request, response) => {
-  const dummyData = new Props({
-    title: "First Title",
-    description: "First Description",
-    price: 450000,
-    location: "First Location",
-    country: "First Country",
-  });
-  await dummyData
+//* Home Route
+app.get("/props", async (request, response) => {
+  const allProps = await Props.find({});
+
+  response.render("./props/allProps.ejs", { allProps });
+});
+
+//* New Route
+app.get("/props/new", async (request, response) => {
+  response.render("./props/newProp");
+});
+
+//* Show Route
+app.get("/props/:id", async (request, response) => {
+  const { id } = request.params;
+  const prop = await Props.findById(id);
+
+  response.render("./props/showProp.ejs", { prop });
+});
+
+//* Add Route
+app.post("/props", async (request, response) => {
+  const newProp = new Props(request.body.prop);
+
+  await newProp
     .save()
     .then((response) => {
-      console.log("Data saved successfully: ", response);
+      console.log("New Property add successfully.");
     })
     .catch((error) => {
       console.log(error.message);
     });
-  response.send("Succefully Send");
+
+  response.redirect("/props");
+});
+
+//* Edit Route
+app.get("/props/:id/edit", async (request, response) => {
+  const { id } = request.params;
+  const prop = await Props.findById(id);
+
+  response.render("./props/edit.ejs", { prop });
+});
+
+//* Update Route
+app.put("/props/:id", async (request, response) => {
+  const { id } = request.params;
+  updatedProp = { ...request.body.prop };
+  await Props.findByIdAndUpdate(id, updatedProp);
+
+  response.redirect(`/props/${id}`);
+});
+
+//* Delete Route
+app.delete("/props/:id", async (request, response) => {
+  const { id } = request.params;
+  const deletedProp = await Props.findByIdAndDelete(id);
+  console.log(deletedProp);
+
+  response.redirect("/props");
 });
 
 app.listen(PORT, () => {
