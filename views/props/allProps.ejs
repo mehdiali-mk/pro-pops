@@ -1,6 +1,6 @@
 <% layout("/layout/boilerplate") %>
 <body>
-  <div class="px-8 flex items-center justify-center flex-col">
+  <div class="px-8 flex items-center justify-center flex-col mb-14">
     <form action="/props/new" method="get">
       <button type="submit">Add Property</button>
     </form>
@@ -9,7 +9,9 @@
         class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 w-full"
       >
         <% for (let prop of allProps) {%>
-        <div class="w-52 bg-white text-black rounded-lg">
+        <div
+          class="w-52 bg-white text-black rounded-lg shadow-lg drop-shadow-md hover:-translate-y-3 transition-all duration-500"
+        >
           <a
             class="inline h-52 overflow-hidden hover:brightness-90 transition duration-200"
             href="/props/<%= prop._id %>"
@@ -20,7 +22,7 @@
               alt="Property image"
             />
           </a>
-          <div class="pt-1">
+          <div class="py-2 px-3">
             <a href="/props/<%= prop._id %>">
               <h5 class="text-sm font-semibold tracking-tight text-gray-900">
                 <%= prop.title %>

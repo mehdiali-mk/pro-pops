@@ -1,56 +1,235 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>New Property</title>
-  </head>
-  <body>
-    <h1>Add new Property:</h1>
-    <form action="/props" method="post">
-      <input
-        type="text"
-        name="prop[title]"
-        id="title"
-        placeholder="Enter the title"
-      />
-      <br /><br />
-      <textarea
-        name="prop[description]"
-        id="description"
-        placeholder="Enter the description"
-      ></textarea>
-      <br /><br />
-      <input
-        type="text"
-        name="prop[image]"
-        id="image"
-        placeholder="Enter image URL/Link"
-      />
-      <br /><br />
-      <input
-        type="number"
-        name="prop[price]"
-        id="price"
-        placeholder="Enter the price"
-      />
-      <br /><br />
-      <input
-        type="text"
-        name="prop[location]"
-        id="location"
-        placeholder="Enter the location"
-      />
-      <br /><br />
-      <input
-        type="text"
-        name="prop[country]"
-        id="country"
-        placeholder="Enter the country"
-      />
-      <br /><br />
-      <button type="submit">Add</button>
-      <button type="reset">Cancel</button>
-    </form>
-  </body>
-</html>
+<% layout("/layout/boilerplate") %>
+<body>
+  <!-- <form action="/props" method="post">
+    <input
+      type="text"
+      name="prop[title]"
+      id="title"
+      placeholder="Enter the title"
+    />
+    <br /><br />
+    <textarea
+      name="prop[description]"
+      id="description"
+      placeholder="Enter the description"
+    ></textarea>
+    <br /><br />
+    <input
+      type="text"
+      name="prop[image]"
+      id="image"
+      placeholder="Enter image URL/Link"
+    />
+    <br /><br />
+    <input
+      type="number"
+      name="prop[price]"
+      id="price"
+      placeholder="Enter the price"
+    />
+    <br /><br />
+    <input
+      type="text"
+      name="prop[location]"
+      id="location"
+      placeholder="Enter the location"
+    />
+    <br /><br />
+    <input
+      type="text"
+      name="prop[country]"
+      id="country"
+      placeholder="Enter the country"
+    />
+    <br /><br />
+    <button type="submit">Add</button>
+    <button type="reset">Cancel</button>
+  </form>
+  -->
+
+  <div class="min-h-screen p-0 sm:p-12">
+    <div
+      class="mx-auto max-w-md px-6 py-14 bg-white border-0 shadow-lg sm:rounded-3xl"
+    >
+      <h1 class="text-2xl font-bold mb-8">Add New Property</h1>
+      <form id="form" action="/props" method="post">
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="prop[title]"
+            placeholder=""
+            required
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          />
+          <label
+            for="prop[title]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Property Title</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5">
+          <!-- <input
+            type="email"
+            name="email"
+            placeholder=" "
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          /> -->
+          <textarea
+            name="prop[description]"
+            id="description"
+            required
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          ></textarea>
+          <label
+            for="prop[description]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Enter description</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="prop[image]"
+            placeholder=" "
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          />
+          <label
+            for="prop[image]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Enter Image URL</label
+          >
+        </div>
+
+        <!-- <fieldset class="relative z-0 w-full p-px mb-5">
+          <legend
+            class="absolute text-gray-500 transform scale-75 -top-3 origin-0"
+          >
+            Choose an option
+          </legend>
+          <div class="block pt-3 pb-2 space-x-4">
+            <label>
+              <input
+                type="radio"
+                name="radio"
+                value="1"
+                class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
+              />
+              Option 1
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="radio"
+                value="2"
+                class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
+              />
+              Option 2
+            </label>
+          </div>
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Option has to be selected</span
+          >
+        </fieldset> -->
+
+        <!-- <div class="relative z-0 w-full mb-5">
+          <select
+            name="select"
+            value=""
+            onclick="this.setAttribute('value', this.value);"
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          >
+            <option value="" selected disabled hidden></option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Option 4</option>
+            <option value="5">Option 5</option>
+          </select>
+          <label
+            for="select"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Select an option</label
+          >
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Option has to be selected</span
+          >
+        </div> -->
+
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="number"
+            name="prop[price]"
+            placeholder=" "
+            required
+            class="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          />
+          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400">₹</div>
+          <label
+            for="prop[price]"
+            class="absolute duration-300 top-3 left-5 z-10 origin-0 text-gray-500"
+            >Enter Price</label
+          >
+        </div>
+
+        <div class="flex flex-row space-x-4">
+          <div class="relative z-0 w-full mb-5">
+            <input
+              type="text"
+              name="prop[location]"
+              placeholder=" "
+              required
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            />
+            <label
+              for="prop[location]"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              >Location</label
+            >
+          </div>
+          <div class="relative z-0 w-full">
+            <input
+              type="text"
+              name="prop[country]"
+              placeholder=" "
+              required
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            />
+            <label
+              for="prop[country]"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              >Country</label
+            >
+          </div>
+        </div>
+        <!-- 
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="duration"
+            placeholder=" "
+            class="pt-3 pb-2 pr-12 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          />
+          <div class="absolute top-0 right-0 mt-3 mr-4 text-gray-400">min</div>
+          <label
+            for="duration"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Duration</label
+          >
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Duration is required</span
+          >
+        </div> -->
+
+        <button
+          id="button"
+          type="submit"
+          class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
+        >
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+</body>

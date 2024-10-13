@@ -1,23 +1,133 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Show Prop</title>
-  </head>
-  <body>
-    <h3>Property Details:</h3>
-    <a href="/props/<%= prop._id %>/edit">Edit </a>
-    <form action="/props/<%= prop._id %>?_method=DELETE" method="post">
-      <button type="submit">Delete</button>
-    </form>
-    <ul>
-      <li><%= prop.title%></li>
-      <li><%= prop.description%></li>
-      <li>₹ <%= prop.price.toLocaleString("en-IN")%></li>
-      <li><%= prop.location%></li>
-      <li><%= prop.country%></li>
-      <li><img src="<%= prop.image %>" alt="Property Image" /></li>
-    </ul>
-  </body>
-</html>
+<% layout("/layout/boilerplate") %>
+<body>
+  <!-- <a href="/props/<%= prop._id %>/edit">Edit </a>
+  <form action="/props/<%= prop._id %>?_method=DELETE" method="post">
+    <button type="submit">Delete</button>
+  </form> -->
+  <!-- <ul>
+    <li><%= prop.title%></li>
+    <li><%= prop.description%></li>
+    <li>₹ <%= prop.price.toLocaleString("en-IN")%></li>
+    <li><%= prop.location%></li>
+    <li><%= prop.country%></li>
+    <li><img src="<%= prop.image %>" alt="Property Image" /></li>
+  </ul>
+  -->
+  <div class="w-full flex items-center justify-center py-12">
+    <div class="w-1/2 bg-white text-black rounded-lg shadow-lg drop-shadow-md">
+      <a
+        class="inline h-52 overflow-hidden hover:brightness-90 transition duration-200"
+        href="/props/<%= prop._id %>"
+      >
+        <img
+          class="rounded-lg object-cover h-80 w-full"
+          src="<%= prop.image %>"
+          alt="Property image"
+        />
+      </a>
+      <div class="pt-4 px-3">
+        <h5 class="text-3xl font-bold tracking-tight text-gray-900 mb-2">
+          <%= prop.title %>
+        </h5>
+        <p class="text-base text-gray-900 mb-3"><%= prop.description %></p>
+
+        <p class="text-xl font-bold text-gray-900 mb-2">
+          ₹ <%= prop.price.toLocaleString("en-IN") %>
+        </p>
+        <div class="flex items-start justify-center flex-col gap-0">
+          <p class="text-lg font-normal text-gray-900">
+            <span class="font-bold">Location:</span> <%= prop.location %>
+          </p>
+          <p class="text-lg font-normal text-gray-900">
+            <span class="font-bold">Country:</span> <%= prop.country %>
+          </p>
+        </div>
+        <!-- <div class="flex items-center mt-2.5 mb-5">
+          <div class="flex items-center space-x-1 rtl:space-x-reverse">
+            <svg
+              class="w-4 h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            <svg
+              class="w-4 h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            <svg
+              class="w-4 h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            <svg
+              class="w-4 h-4 text-yellow-300"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+            <svg
+              class="w-4 h-4 text-gray-200 dark:text-gray-600"
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 22 20"
+            >
+              <path
+                d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"
+              />
+            </svg>
+          </div>
+          <span
+            class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3"
+            >5.0</span
+          >
+        </div> -->
+      </div>
+      <div class="px-4 py-4 flex items-center justify-center gap-10">
+        <a
+          id="button"
+          href="/props/<%= prop._id %>/edit"
+          class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary border-2 border-primary hover:shadow-lg focus:outline-none uppercase font-extrabold select-none text-center"
+        >
+          Edit
+        </a>
+        <form
+          action="/props/<%= prop._id %>?_method=DELETE"
+          method="post"
+          class="w-full"
+        >
+          <button
+            id="button"
+            type="submit"
+            class="w-full px-6 py-3 mt-3 text-lg text-primary transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-transparent border-2 border-primary hover:shadow-lg focus:outline-none uppercase font-extrabold select-none"
+          >
+            Delete
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
