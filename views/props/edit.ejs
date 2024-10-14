@@ -52,7 +52,7 @@
       <button type="reset">Cancel</button>
     </form>
     -->
-
+  <!-- 
   <div class="min-h-screen p-0 sm:p-12">
     <div
       class="mx-auto max-w-md px-6 py-14 bg-white border-0 shadow-lg sm:rounded-3xl"
@@ -76,12 +76,6 @@
         </div>
 
         <div class="relative z-0 w-full mb-5">
-          <!-- <input
-            type="email"
-            name="email"
-            placeholder=" "
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          /> -->
           <textarea
             name="prop[description]"
             id="description"
@@ -111,61 +105,6 @@
             >Enter Image URL</label
           >
         </div>
-
-        <!-- <fieldset class="relative z-0 w-full p-px mb-5">
-          <legend
-            class="absolute text-gray-500 transform scale-75 -top-3 origin-0"
-          >
-            Choose an option
-          </legend>
-          <div class="block pt-3 pb-2 space-x-4">
-            <label>
-              <input
-                type="radio"
-                name="radio"
-                value="1"
-                class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
-              />
-              Option 1
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="radio"
-                value="2"
-                class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black"
-              />
-              Option 2
-            </label>
-          </div>
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Option has to be selected</span
-          >
-        </fieldset> -->
-
-        <!-- <div class="relative z-0 w-full mb-5">
-          <select
-            name="select"
-            value=""
-            onclick="this.setAttribute('value', this.value);"
-            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
-          >
-            <option value="" selected disabled hidden></option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-            <option value="4">Option 4</option>
-            <option value="5">Option 5</option>
-          </select>
-          <label
-            for="select"
-            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
-            >Select an option</label
-          >
-          <span class="text-sm text-red-600 hidden" id="error"
-            >Option has to be selected</span
-          >
-        </div> -->
 
         <div class="relative z-0 w-full mb-5">
           <input
@@ -216,6 +155,153 @@
             >
           </div>
         </div>
+        <button
+          id="button"
+          type="submit"
+          class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
+        >
+          Update
+        </button>
+      </form>
+    </div>
+  </div> -->
+
+  <div class="min-h-screen p-0 sm:p-12">
+    <div
+      class="mx-auto max-w-md pb-7 bg-white border-0 shadow-lg sm:rounded-3xl border-b-4 border-primary"
+    >
+      <h1
+        class="text-2xl font-bold mb-8 pt-7 pb-4 px-6 rounded-t-3xl bg-primary text-white uppercase text-center"
+      >
+        Edit Property
+      </h1>
+      <form
+        id="form"
+        action="/props/<%= prop._id %>?_method=PUT"
+        method="post"
+        novalidate
+        class="px-6"
+      >
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="prop[title]"
+            placeholder=""
+            id="title"
+            value="<%= prop.title %>"
+            required
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          />
+          <label
+            for="prop[title]"
+            id="titleLabel"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Property Title</label
+          >
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Title is required</span
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5">
+          <textarea
+            name="prop[description]"
+            id="description"
+            required
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+          >
+<%= prop.description %></textarea
+          >
+          <label
+            for="prop[description]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            id="descriptionLabel"
+            >Enter description</label
+          >
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Description is required</span
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="prop[image]"
+            placeholder=" "
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            value="<%= prop.image %>"
+          />
+          <label
+            for="prop[image]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Enter Image URL</label
+          >
+        </div>
+
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="number"
+            name="prop[price]"
+            placeholder=" "
+            required
+            class="pt-3 pb-2 pl-5 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            value="<%= prop.price %>"
+            id="price"
+          />
+          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400">₹</div>
+          <label
+            for="prop[price]"
+            class="absolute duration-300 top-3 left-5 z-10 origin-0 text-gray-500"
+            id="priceLabel"
+            >Enter Price</label
+          >
+          <span class="text-sm text-red-600 hidden" id="error"
+            >Price is required</span
+          >
+        </div>
+
+        <div class="flex flex-row space-x-4">
+          <div class="relative z-0 w-full mb-5">
+            <input
+              type="text"
+              name="prop[location]"
+              placeholder=" "
+              id="location"
+              required
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              value="<%= prop.location %>"
+            />
+            <label
+              for="prop[location]"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              id="locationLabel"
+              >Location</label
+            >
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Location is required</span
+            >
+          </div>
+          <div class="relative z-0 w-full">
+            <input
+              type="text"
+              name="prop[country]"
+              placeholder=" "
+              id="country"
+              required
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+              value="<%= prop.country %>"
+            />
+            <label
+              for="prop[country]"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              id="countryLabel"
+              >Country</label
+            >
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Country is required</span
+            >
+          </div>
+        </div>
         <!-- 
         <div class="relative z-0 w-full mb-5">
           <input
@@ -234,14 +320,21 @@
             >Duration is required</span
           >
         </div> -->
-
-        <button
-          id="button"
-          type="submit"
-          class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
-        >
-          Update
-        </button>
+        <div class="flex items-center justify-center gap-2">
+          <button
+            id="button"
+            type="submit"
+            class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary border-2 border-transparent hover:shadow-lg focus:outline-none uppercase font-extrabold"
+          >
+            Update
+          </button>
+          <a
+            href="/props/<%= prop._id %>"
+            class="w-full px-6 py-3 mt-3 text-lg text-primary transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-transparent border-2 border-primary hover:shadow-lg focus:outline-none uppercase font-extrabold text-center cursor-pointer"
+          >
+            Cancel
+          </a>
+        </div>
       </form>
     </div>
   </div>

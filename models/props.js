@@ -11,15 +11,20 @@ const propSchema = new Schema({
   },
   description: {
     type: "String",
+    required: true,
   },
   image: {
     type: "String",
     default: DEFAULT_IMAGE_URL,
     set: (userValue) => (userValue === "" ? DEFAULT_IMAGE_URL : userValue),
   },
-  price: "Number",
-  location: "String",
-  country: "String",
+  price: {
+    type: "Number",
+    required: true,
+    min: 0,
+  },
+  location: { type: "String", required: true },
+  country: { type: "String", required: true },
 });
 
 const Prop = mongoose.model("Prop", propSchema);
