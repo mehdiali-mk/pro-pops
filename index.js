@@ -120,7 +120,9 @@ app.all("*", (request, response, next) => {
 // ! Middleware for error Handling.
 app.use((error, request, response, next) => {
   let { statusCode = 500, message = "Something Went Wrong!!" } = error;
-  response.status(statusCode).send(message);
+  // response.status(statusCode).send(message);
+  response.render("./props/error.ejs", { statusCode, message });
+  console.log(request.params);
 });
 
 app.listen(PORT, () => {

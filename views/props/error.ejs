@@ -1,0 +1,27 @@
+<% layout("/layout/boilerplate") %>
+<body>
+  <div class="bg-gradient-to-r from-primary-300 to-primary-100">
+    <div
+      class="w-9/12 m-auto -translate-y-10 min-h-screen flex items-center justify-center"
+    >
+      <div class="bg-white shadow overflow-hidden sm:rounded-lg pb-8">
+        <div class="border-t border-gray-200 text-center pt-8">
+          <h1 class="text-9xl font-bold text-primary"><%= statusCode %></h1>
+          <h1 class="text-5xl font-medium py-8">oops! Something Went Wrong</h1>
+          <p class="text-xl pb-12 px-12 font-medium"><%= message %></p>
+          <a
+            href="/props"
+            class="bg-primary border-2 border-primary text-white font-bold px-6 py-3 rounded-md mr-6"
+          >
+            HOME
+          </a>
+          <a
+            href="javascript:history.back(1)"
+            class="bg-transparent border-2 border-primary text-primary font-bold px-6 py-3 rounded-md uppercase cursor-pointer"
+            >Cancle
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
