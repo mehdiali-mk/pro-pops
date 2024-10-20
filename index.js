@@ -8,6 +8,8 @@ const Props = require("./models/props.js");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
+const { joiPropSchema, joiReviewSchema } = require("./joiSchema.js");
+const Reviews = require("./models/review.js");
 
 const MONGOOSE_URL = "mongodb://127.0.0.1:27017/pops";
 
@@ -29,6 +31,32 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname + "/public")));
+
+//! Middleware for validate entries.
+const validatePropsSchema = (request, response, next) => {
+  const { error } = joiPropSchema.validate(request.body);
+  if (error) {
+    let errorMessage = error.details
+      .map((element) => element.message)
+      .join(",");
+    throw new ExpressError(400, errorMessage);
+  } else {
+    next();
+  }
+};
+
+//! Middleware for validate entries.
+const validateReviewSchema = (request, response, next) => {
+  const { error } = joiReviewSchema.validate(request.body);
+  if (error) {
+    let errorMessage = error.details
+      .map((element) => element.message)
+      .join(",");
+    throw new ExpressError(400, errorMessage);
+  } else {
+    next();
+  }
+};
 
 //* Home Route
 app.get(
@@ -61,7 +89,7 @@ app.get(
   "/props/:id",
   wrapAsync(async (request, response) => {
     const { id } = request.params;
-    const prop = await Props.findById(id);
+    const prop = await Props.findById(id).populate("reviews");
 
     response.render("./props/showProp.ejs", { prop });
   })
@@ -70,6 +98,7 @@ app.get(
 //* Add Route
 app.post(
   "/props",
+  validatePropsSchema,
   wrapAsync(async (request, response, next) => {
     const newProp = new Props(request.body.prop);
     await newProp.save();
@@ -91,6 +120,7 @@ app.get(
 //* Update Route
 app.put(
   "/props/:id",
+  validatePropsSchema,
   wrapAsync(async (request, response) => {
     const { id } = request.params;
     updatedProp = { ...request.body.prop };
@@ -112,6 +142,39 @@ app.delete(
   })
 );
 
+//? Reviews
+//* Post Review Rout
+app.post(
+  "/props/:id/reviews",
+  validateReviewSchema,
+  wrapAsync(async (request, response) => {
+    const ID = request.params.id;
+    const prop = await Props.findById(ID);
+    let newReview = new Reviews(request.body.review);
+
+    prop.reviews.push(newReview);
+
+    await newReview.save();
+    await prop.save();
+
+    console.log("New Review Saved");
+    response.redirect(`/props/${ID}`);
+  })
+);
+
+//* Delete Review Route
+app.delete(
+  "/props/:id/reviews/:reviewId",
+  wrapAsync(async (request, response) => {
+    const { id, reviewId } = request.params;
+
+    await Props.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Reviews.findByIdAndDelete(reviewId);
+
+    response.redirect(`/props/${id}`);
+  })
+);
+
 //?
 app.all("*", (request, response, next) => {
   next(new ExpressError(404, "Page Not Found"));
@@ -122,7 +185,6 @@ app.use((error, request, response, next) => {
   let { statusCode = 500, message = "Something Went Wrong!!" } = error;
   // response.status(statusCode).send(message);
   response.render("./props/error.ejs", { statusCode, message });
-  console.log(request.params);
 });
 
 app.listen(PORT, () => {

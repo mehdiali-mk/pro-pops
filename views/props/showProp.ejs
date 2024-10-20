@@ -13,7 +13,8 @@
     <li><img src="<%= prop.image %>" alt="Property Image" /></li>
   </ul>
   -->
-  <div class="w-full flex items-center justify-center py-12">
+  <div class="w-full flex items-center justify-center flex-col py-12 gap-5">
+    <!-- ========== Start Prop Detail Section ========== -->
     <div class="w-1/2 bg-white text-black rounded-lg shadow-lg drop-shadow-md">
       <a
         class="inline h-52 overflow-hidden hover:brightness-90 transition duration-200"
@@ -129,5 +130,231 @@
         </form>
       </div>
     </div>
+    <!-- ========== End Prop Detail Section ========== -->
+
+    <!-- ========== Start Review Input Section ========== -->
+    <div class="p-0 sm:p-12 w-1/2">
+      <div
+        class="pb-7 bg-white border-0 shadow-lg sm:rounded-3xl border-b-4 border-primary"
+      >
+        <h1
+          class="text-2xl font-bold mb-8 pt-7 pb-4 px-6 sm:rounded-t-3xl bg-primary text-white uppercase text-center"
+        >
+          Add New Review
+        </h1>
+        <form
+          id="formReview"
+          method="post"
+          action="/props/<%= prop._id %>/reviews"
+          class="px-6"
+        >
+          <div class="relative z-0 w-full mb-5">
+            <input
+              type="text"
+              name="review[title]"
+              placeholder=""
+              id="reviewTitle"
+              required
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            />
+            <label
+              for="review[title]"
+              id="reviewTitleLabel"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              >Review Title</label
+            >
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Review Title is required</span
+            >
+          </div>
+          <div class="relative z-0 w-full mb-5">
+            <textarea
+              name="review[comment]"
+              id="comment"
+              re
+              quired
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            ></textarea>
+            <label
+              for="review[comment]"
+              class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+              id="commentLabel"
+              >Enter your comment</label
+            >
+            <span class="text-sm text-red-600 hidden" id="commentError"
+              >Comment is required</span
+            >
+          </div>
+
+          <div class="relative z-0 w-full mb-5">
+            <select
+              name="review[rating]"
+              id="rating"
+              value=""
+              onclick="this.setAttribute('value', this.value);"
+              class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            >
+              <option value="" selected disabled hidden></option>
+              <option value="1">1st Rating</option>
+              <option value="2">2nd Rating</option>
+              <option value="3">3rd Rating</option>
+              <option value="4">4th Rating</option>
+              <option value="5">5th Rating</option>
+            </select>
+            <label
+              for="review[rating]"
+              id="ratingLabel"
+              class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
+              >Select an Rating</label
+            >
+            <span class="text-sm text-red-600 hidden" id="ratingError"
+              >Option has to be selected</span
+            >
+          </div>
+
+          <!-- 
+          <fieldset class="relative z-0 w-full p-px mb-5">
+            <legend
+              class="absolute text-gray-500 transform scale-75 -top-3 origin-0"
+            >
+              Choose an option
+            </legend>
+            <div class="block pt-3 pb-2 space-x-0 text-xl">
+              <label class="cursor-pointer" id="ratingLabel">
+                <input
+                  type="radio"
+                  name="review[rating]"
+                  id="rating"
+                  value="1"
+                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black hidden"
+                />
+                <i class="fa-regular fa-star" id="ratingIcon"></i>
+              </label>
+              <label class="cursor-pointer" id="ratingLabel">
+                <input
+                  type="radio"
+                  name="review[rating]"
+                  id="rating"
+                  value="2"
+                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black hidden"
+                />
+                <i class="fa-regular fa-star" id="ratingIcon"></i>
+              </label>
+              <label class="cursor-pointer" id="ratingLabel">
+                <input
+                  type="radio"
+                  name="review[rating]"
+                  id="rating"
+                  value="3"
+                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black hidden"
+                />
+                <i class="fa-regular fa-star" id="ratingIcon"></i>
+              </label>
+              <label class="cursor-pointer" id="ratingLabel">
+                <input
+                  type="radio"
+                  name="review[rating]"
+                  id="rating"
+                  value="4"
+                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black hidden"
+                />
+                <i class="fa-regular fa-star" id="ratingIcon"></i>
+              </label>
+              <label class="cursor-pointer" id="ratingLabel">
+                <input
+                  type="radio"
+                  name="review[rating]"
+                  id="rating"
+                  value="5"
+                  class="mr-2 text-black border-2 border-gray-300 focus:border-gray-300 focus:ring-black hidden"
+                />
+                <i class="fa-regular fa-star" id="ratingIcon"></i>
+              </label>
+            </div>
+            <span class="text-sm text-red-600 hidden" id="error"
+              >Option has to be selected</span
+            >
+          </fieldset> -->
+
+          <button
+            id="buttonSubmit"
+            type="submit"
+            class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- ========== End Review Input Section ========== -->
+
+    <!-- ========== Start Review Section ========== -->
+    <div class="flex items-center justify-center w-full py-6">
+      <div
+        class="py-2 px-6 bg-primary text-2xl font-bold text-white rounded-lg shadow-md"
+      >
+        Reviews
+      </div>
+    </div>
+    <div class="flex-wrap flex items-center justify-around gap-8 px-6">
+      <% for(review of prop.reviews) { %>
+      <div
+        class="rate w-96 h-72 bg-white shadow-lg py-6 px-6 rounded-xl flex flex-col justify-start relative"
+      >
+        <div class="stars flex items-center gap-2">
+          <% let i = 0; %> <% for(i = 0; i < review.rating; i++ ) {%>
+          <i class="fa-solid fa-star text-primary text-2xl"></i>
+          <% } %> <% for(; i < 5; i++) {%>
+          <i class="fa-regular fa-star text-primary text-2xl"></i>
+          <% } %>
+          <p class="text-2xl ml-2 text-black font-bold">
+            / <%= review.rating %>
+          </p>
+        </div>
+
+        <div class="flex gap-2 mt-6 flex-col justify-start items-start">
+          <h1 class="text-2xl font-bold tracking-wider capitalize">
+            <%= review.title %>
+          </h1>
+          <p class="font-light tracking-widest line-clamp-3">
+            <%= review.comment %>
+          </p>
+        </div>
+
+        <div class="absolute bottom-3 w-full">
+          <div class="w-full flex items-center justify-between relative">
+            <div class="rater-info mb-2 flex gap-2 items-center">
+              <div class="avatar w-12 h-12 shadow rounded-full overflow-hidden">
+                <img
+                  src="/images/mehdialiImage.jpg"
+                  class="object-cover w-full h-full"
+                  alt=""
+                />
+              </div>
+              <div class="flex-1 flex justify-around flex-col">
+                <h1 class="font-bold text-lg tracking-wide">Unknown</h1>
+                <span class="font-light text-sm text-slate-500">
+                  Not Defined Yet
+                </span>
+              </div>
+            </div>
+            <form
+              action="/props/<%= prop._id %>/reviews/<%= review._id %>?_method=DELETE"
+              method="post"
+              class="absolute right-12"
+            >
+              <button
+                type="submit"
+                class="bg-transparent text-sm border-2 border-primary py-2 px-2 rounded-full w-10 h-10 text-primary hover:bg-primary hover:text-white transition-all duration-200"
+              >
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    <!-- ========== End Review Section ========== -->
   </div>
 </body>
