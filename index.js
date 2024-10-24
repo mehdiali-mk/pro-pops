@@ -11,6 +11,9 @@ const ExpressError = require("./utils/ExpressError.js");
 const { joiPropSchema, joiReviewSchema } = require("./joiSchema.js");
 const Reviews = require("./models/review.js");
 const propsRouter = require("./routes/propsRoute.js");
+const reviewRouter = require("./routes/reviewsRoute.js");
+const session = require("express-session");
+const flash = require("connect-flash");
 
 const MONGOOSE_URL = "mongodb://127.0.0.1:27017/pops";
 
@@ -33,20 +36,19 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname + "/public")));
 
-//! Middleware for validate entries.
-const validateReviewSchema = (request, response, next) => {
-  const { error } = joiReviewSchema.validate(request.body);
-  if (error) {
-    let errorMessage = error.details
-      .map((element) => element.message)
-      .join(",");
-    throw new ExpressError(400, errorMessage);
-  } else {
-    next();
-  }
+const sessionOptions = {
+  secret: "MKDJIndia@786",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
 };
 
-app.use("/props", propsRouter);
+app.use(session(sessionOptions));
+app.use(flash());
 
 //* Home Route
 app.get(
@@ -56,38 +58,14 @@ app.get(
   })
 );
 
-//? Reviews
-//* Post Review Rout
-app.post(
-  "/props/:id/reviews",
-  validateReviewSchema,
-  wrapAsync(async (request, response) => {
-    const ID = request.params.id;
-    const prop = await Props.findById(ID);
-    let newReview = new Reviews(request.body.review);
+app.use((request, response, next) => {
+  response.locals.success = request.flash("success");
+  response.locals.error = request.flash("error");
+  next();
+});
 
-    prop.reviews.push(newReview);
-
-    await newReview.save();
-    await prop.save();
-
-    console.log("New Review Saved");
-    response.redirect(`/props/${ID}`);
-  })
-);
-
-//* Delete Review Route
-app.delete(
-  "/props/:id/reviews/:reviewId",
-  wrapAsync(async (request, response) => {
-    const { id, reviewId } = request.params;
-
-    await Props.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    await Reviews.findByIdAndDelete(reviewId);
-
-    response.redirect(`/props/${id}`);
-  })
-);
+app.use("/props", propsRouter);
+app.use("/props/:id/reviews", reviewRouter);
 
 //?
 app.all("*", (request, response, next) => {

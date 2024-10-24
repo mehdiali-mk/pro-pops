@@ -10,16 +10,22 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+
     <title>Pro-Pops</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+    />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/newform.css" />
     <link rel="stylesheet" href="/css/error.css" />
   </head>
   <body>
-    <%- include("../includes/navbar") %> <%- body %> <%-
-    include("../includes/footer") %>
+    <%- include("../includes/navbar") %> <%- include("../includes/flash") %> <%-
+    body %> <%- include("../includes/footer") %>
 
-    <!-- <script src="/js/validate.js"></script> -->
+    <script src="/js/toast.js"></script>
+    <script src="/js/validate.js"></script>
     <!-- <script src="/js/validateReview.js"></script> -->
   </body>
 </html>

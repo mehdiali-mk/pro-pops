@@ -1,0 +1,21 @@
+<% if (success && success.length) {%>
+<button
+  class="fixed right-1/2 translate-x-[50%] top-20 z-50 rounded-md bg-primary px-4 py-2 text-white hidden transition-all duration-200"
+  id="toastButton"
+>
+  <div class="flex items-center space-x-2">
+    <span class="text-3xl"><i class="fa-solid fa-check"></i></span>
+    <p class="font-bold" id="toastMessage"><%= success %></p>
+  </div>
+</button>
+<% } %> <% if (error && error.length) {%>
+<button
+  class="fixed right-1/2 translate-x-[50%] top-20 z-50 rounded-md bg-primary px-4 py-2 text-white hidden transition-all duration-200"
+  id="toastButton"
+>
+  <div class="flex items-center space-x-2">
+    <span class="text-3xl"><i class="fa-solid fa-xmark"></i></span>
+    <p class="font-bold" id="toastMessage"><%= error %></p>
+  </div>
+</button>
+<% } %>

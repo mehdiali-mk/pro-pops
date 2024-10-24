@@ -3,7 +3,7 @@ const router = express.Router();
 const Props = require("../models/props.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
-const { joiPropSchema, joiReviewSchema } = require("../joiSchema.js");
+const { joiPropSchema } = require("../joiSchema.js");
 
 //! Middleware for validate entries.
 const validatePropsSchema = (request, response, next) => {
@@ -43,6 +43,11 @@ router.get(
     const { id } = request.params;
     const prop = await Props.findById(id).populate("reviews");
 
+    if (!prop) {
+      request.flash("error", "Property does not exist");
+      response.redirect("/");
+    }
+
     response.render("props/showProp.ejs", { prop });
   })
 );
@@ -54,6 +59,7 @@ router.post(
   wrapAsync(async (request, response, next) => {
     const newProp = new Props(request.body.prop);
     await newProp.save();
+    request.flash("success", "New Property has Added!");
     response.redirect("props");
   })
 );
@@ -65,6 +71,10 @@ router.get(
     const { id } = request.params;
     const prop = await Props.findById(id);
 
+    if (!prop) {
+      request.flash("error", "Property does not exist");
+      response.redirect("/");
+    }
     response.render("props/edit.ejs", { prop });
   })
 );
@@ -77,8 +87,8 @@ router.put(
     const { id } = request.params;
     updatedProp = { ...request.body.prop };
     await Props.findByIdAndUpdate(id, updatedProp);
-
-    response.redirect(`props/${id}`);
+    request.flash("success", "Property has Updated!");
+    response.redirect(`/props/${id}`);
   })
 );
 
@@ -89,8 +99,8 @@ router.delete(
     const { id } = request.params;
     const deletedProp = await Props.findByIdAndDelete(id);
     console.log(deletedProp);
-
-    response.redirect("props");
+    request.flash("success", "Property has Deleted!");
+    response.redirect("/");
   })
 );
 
