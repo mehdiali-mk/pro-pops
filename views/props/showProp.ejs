@@ -147,13 +147,14 @@
           method="post"
           action="/props/<%= prop._id %>/reviews"
           class="px-6"
+          novalidate
         >
           <div class="relative z-0 w-full mb-5">
             <input
               type="text"
               name="review[title]"
               placeholder=""
-              id="reviewTitle"
+              id="reviewTitleInput"
               required
               class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             />
@@ -163,25 +164,24 @@
               class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
               >Review Title</label
             >
-            <span class="text-sm text-red-600 hidden" id="error"
+            <span class="text-sm text-red-600 hidden" id="reviewError"
               >Review Title is required</span
             >
           </div>
           <div class="relative z-0 w-full mb-5">
             <textarea
               name="review[comment]"
-              id="comment"
-              re
-              quired
+              id="reviewCommentInput"
+              required
               class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
             ></textarea>
             <label
               for="review[comment]"
               class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
-              id="commentLabel"
+              id="reviewCommentLabel"
               >Enter your comment</label
             >
-            <span class="text-sm text-red-600 hidden" id="commentError"
+            <span class="text-sm text-red-600 hidden" id="reviewError"
               >Comment is required</span
             >
           </div>
@@ -189,7 +189,7 @@
           <div class="relative z-0 w-full mb-5">
             <select
               name="review[rating]"
-              id="rating"
+              id="reviewRatingInput"
               value=""
               onclick="this.setAttribute('value', this.value);"
               class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none z-1 focus:outline-none focus:ring-0 focus:border-black border-gray-200"
@@ -203,12 +203,12 @@
             </select>
             <label
               for="review[rating]"
-              id="ratingLabel"
+              id="reviewRatingLabel"
               class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500"
               >Select an Rating</label
             >
-            <span class="text-sm text-red-600 hidden" id="ratingError"
-              >Option has to be selected</span
+            <span class="text-sm text-red-600 hidden" id="reviewError"
+              >Rating has to be selected</span
             >
           </div>
 
@@ -277,7 +277,7 @@
           </fieldset> -->
 
           <button
-            id="buttonSubmit"
+            id="buttonReviewSubmit"
             type="submit"
             class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
           >

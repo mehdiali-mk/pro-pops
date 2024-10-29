@@ -1,0 +1,97 @@
+<% layout("/layout/boilerplate") %>
+<body>
+  <div class="min-h-screen p-0 sm:p-12">
+    <div
+      class="mx-auto max-w-md pb-7 bg-white border-0 shadow-lg sm:rounded-3xl border-b-4 border-primary"
+    >
+      <h1
+        class="text-2xl font-bold mb-8 pt-7 pb-4 px-6 sm:rounded-t-3xl bg-primary text-white uppercase text-center"
+      >
+        Sign Up
+      </h1>
+      <form
+        id="formSingup"
+        action="/signup"
+        method="post"
+        novalidate
+        class="px-6"
+      >
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="email"
+            name="email"
+            placeholder=" "
+            required
+            class="pt-3 pb-2 pl-7 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            id="signupEmailInput"
+          />
+          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400">
+            <i class="fa-solid fa-envelope"></i>
+          </div>
+          <label
+            for="email"
+            class="absolute duration-300 top-3 left-7 z-10 origin-0 text-gray-500"
+            id="signupEmailLabel"
+            >Enter Email</label
+          >
+          <span class="text-sm text-red-600 hidden" id="signupError"
+            >Email is required</span
+          >
+        </div>
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="text"
+            name="username"
+            placeholder=" "
+            required
+            class="pt-3 pb-2 pl-7 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            id="signupUsernameInput"
+          />
+          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <label
+            for="username"
+            class="absolute duration-300 top-3 left-7 z-10 origin-0 text-gray-500"
+            id="signupUsernameLabel"
+            >Enter Username</label
+          >
+          <span class="text-sm text-red-600 hidden" id="signupError"
+            >Username is required</span
+          >
+        </div>
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="password"
+            name="password"
+            placeholder=" "
+            required
+            class="pt-3 pb-2 pl-7 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+            id="signupPasswordInput"
+          />
+          <div class="absolute top-0 left-0 mt-3 ml-1 text-gray-400">
+            <i class="fa-solid fa-key"></i>
+          </div>
+          <label
+            for="password"
+            class="absolute duration-300 top-3 left-7 z-10 origin-0 text-gray-500"
+            id="signupPasswordLabel"
+            >Enter Password</label
+          >
+          <span class="text-sm text-red-600 hidden" id="signupError"
+            >Password is required</span
+          >
+        </div>
+
+        <button
+          id="buttonSignupSubmit"
+          type="submit"
+          @click="openToast()"
+          class="w-full px-6 py-3 mt-3 text-lg text-white transition-all duration-150 ease-linear rounded-lg shadow outline-none bg-primary hover:shadow-lg focus:outline-none uppercase font-extrabold"
+        >
+          Sign Up
+        </button>
+      </form>
+    </div>
+  </div>
+</body>

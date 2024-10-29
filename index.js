@@ -12,8 +12,12 @@ const { joiPropSchema, joiReviewSchema } = require("./joiSchema.js");
 const Reviews = require("./models/review.js");
 const propsRouter = require("./routes/propsRoute.js");
 const reviewRouter = require("./routes/reviewsRoute.js");
+const userRouter = require("./routes/userRoute.js");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 const MONGOOSE_URL = "mongodb://127.0.0.1:27017/pops";
 
@@ -50,6 +54,13 @@ const sessionOptions = {
 app.use(session(sessionOptions));
 app.use(flash());
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 //* Home Route
 app.get(
   "/",
@@ -64,8 +75,19 @@ app.use((request, response, next) => {
   next();
 });
 
+// app.get("/userDemo", async (request, response) => {
+//   let fakeUser = new User({
+//     email: "yourExample@gmail.com",
+//     username: "mehdialikadiwala",
+//   });
+
+//   let newUser = await User.register(fakeUser, "mkdjHello@786");
+//   response.send(newUser);
+// });
+
 app.use("/props", propsRouter);
 app.use("/props/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 //?
 app.all("*", (request, response, next) => {

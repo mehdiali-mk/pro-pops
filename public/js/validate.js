@@ -12,11 +12,12 @@ const errorsEl = document.querySelectorAll("#error");
 const submitButtonEl = document.querySelector("#button");
 const formEl = document.querySelector("#form");
 
-formEl.addEventListener("submit", (event) => {
-  event.preventDefault();
-  checkValidation(formEl);
-});
-
+if (formEl) {
+  formEl.addEventListener("submit", (event) => {
+    event.preventDefault();
+    checkValidation(formEl);
+  });
+}
 function validateNull(inputElement, labelElement, errorIndex) {
   inputElement.classList.remove("border-gray-200");
   inputElement.classList.add("border-red-600");
