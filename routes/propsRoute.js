@@ -4,6 +4,7 @@ const Props = require("../models/props.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const ExpressError = require("../utils/ExpressError.js");
 const { joiPropSchema } = require("../joiSchema.js");
+const { isLoggedIn } = require("../middleware.js");
 
 //! Middleware for validate entries.
 const validatePropsSchema = (request, response, next) => {
@@ -31,6 +32,7 @@ router.get(
 //* New Route
 router.get(
   "/new",
+  isLoggedIn,
   wrapAsync(async (request, response) => {
     response.render("props/newProp");
   })
@@ -55,6 +57,7 @@ router.get(
 //* Add Route
 router.post(
   "/",
+  isLoggedIn,
   validatePropsSchema,
   wrapAsync(async (request, response, next) => {
     const newProp = new Props(request.body.prop);
@@ -67,6 +70,7 @@ router.post(
 //* Edit Route
 router.get(
   "/:id/edit",
+  isLoggedIn,
   wrapAsync(async (request, response) => {
     const { id } = request.params;
     const prop = await Props.findById(id);
@@ -82,6 +86,7 @@ router.get(
 //* Update Route
 router.put(
   "/:id",
+  isLoggedIn,
   validatePropsSchema,
   wrapAsync(async (request, response) => {
     const { id } = request.params;
@@ -95,6 +100,7 @@ router.put(
 //* Delete Route
 router.delete(
   "/:id",
+  isLoggedIn,
   wrapAsync(async (request, response) => {
     const { id } = request.params;
     const deletedProp = await Props.findByIdAndDelete(id);
