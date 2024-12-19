@@ -21,35 +21,21 @@ const validatePropsSchema = (request, response, next) => {
   }
 };
 
-//* Home Route
-router.get("/", wrapAsync(propsController.home));
+router
+  .route("/")
+  .get(wrapAsync(propsController.home))
+  .post(isLoggedIn, validatePropsSchema, wrapAsync(propsController.add));
 
 //* New Route
 router.get("/new", isLoggedIn, wrapAsync(propsController.new));
 
-//* Show Route
-router.get("/:id", wrapAsync(propsController.show));
-
-//* Add Route
-router.post(
-  "/",
-  isLoggedIn,
-  validatePropsSchema,
-  wrapAsync(propsController.add)
-);
+router
+  .route("/:id")
+  .get(wrapAsync(propsController.show))
+  .put(isLoggedIn, validatePropsSchema, wrapAsync(propsController.update))
+  .delete(isLoggedIn, wrapAsync(propsController.delete));
 
 //* Edit Route
 router.get("/:id/edit", isLoggedIn, wrapAsync(propsController.edit));
-
-//* Update Route
-router.put(
-  "/:id",
-  isLoggedIn,
-  validatePropsSchema,
-  wrapAsync(propsController.update)
-);
-
-//* Delete Route
-router.delete("/:id", isLoggedIn, wrapAsync(propsController.delete));
 
 module.exports = router;
