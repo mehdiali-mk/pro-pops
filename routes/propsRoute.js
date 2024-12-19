@@ -6,6 +6,8 @@ const ExpressError = require("../utils/ExpressError.js");
 const { joiPropSchema } = require("../joiSchema.js");
 const { isLoggedIn } = require("../middleware.js");
 
+const propsController = require("../controller/propsController.js");
+
 //! Middleware for validate entries.
 const validatePropsSchema = (request, response, next) => {
   const { error } = joiPropSchema.validate(request.body);
@@ -20,94 +22,34 @@ const validatePropsSchema = (request, response, next) => {
 };
 
 //* Home Route
-router.get(
-  "/",
-  wrapAsync(async (request, response) => {
-    const allProps = await Props.find({});
-
-    response.render("props/allProps.ejs", { allProps });
-  })
-);
+router.get("/", wrapAsync(propsController.home));
 
 //* New Route
-router.get(
-  "/new",
-  isLoggedIn,
-  wrapAsync(async (request, response) => {
-    response.render("props/newProp");
-  })
-);
+router.get("/new", isLoggedIn, wrapAsync(propsController.new));
 
 //* Show Route
-router.get(
-  "/:id",
-  wrapAsync(async (request, response) => {
-    const { id } = request.params;
-    const prop = await Props.findById(id).populate("reviews");
-
-    if (!prop) {
-      request.flash("error", "Property does not exist");
-      response.redirect("/");
-    }
-
-    response.render("props/showProp.ejs", { prop });
-  })
-);
+router.get("/:id", wrapAsync(propsController.show));
 
 //* Add Route
 router.post(
   "/",
   isLoggedIn,
   validatePropsSchema,
-  wrapAsync(async (request, response, next) => {
-    const newProp = new Props(request.body.prop);
-    await newProp.save();
-    request.flash("success", "New Property has Added!");
-    response.redirect("props");
-  })
+  wrapAsync(propsController.add)
 );
 
 //* Edit Route
-router.get(
-  "/:id/edit",
-  isLoggedIn,
-  wrapAsync(async (request, response) => {
-    const { id } = request.params;
-    const prop = await Props.findById(id);
-
-    if (!prop) {
-      request.flash("error", "Property does not exist");
-      response.redirect("/");
-    }
-    response.render("props/edit.ejs", { prop });
-  })
-);
+router.get("/:id/edit", isLoggedIn, wrapAsync(propsController.edit));
 
 //* Update Route
 router.put(
   "/:id",
   isLoggedIn,
   validatePropsSchema,
-  wrapAsync(async (request, response) => {
-    const { id } = request.params;
-    updatedProp = { ...request.body.prop };
-    await Props.findByIdAndUpdate(id, updatedProp);
-    request.flash("success", "Property has Updated!");
-    response.redirect(`/props/${id}`);
-  })
+  wrapAsync(propsController.update)
 );
 
 //* Delete Route
-router.delete(
-  "/:id",
-  isLoggedIn,
-  wrapAsync(async (request, response) => {
-    const { id } = request.params;
-    const deletedProp = await Props.findByIdAndDelete(id);
-    console.log(deletedProp);
-    request.flash("success", "Property has Deleted!");
-    response.redirect("/");
-  })
-);
+router.delete("/:id", isLoggedIn, wrapAsync(propsController.delete));
 
 module.exports = router;
