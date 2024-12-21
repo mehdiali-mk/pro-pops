@@ -56,7 +56,14 @@
       >
         Add New Property
       </h1>
-      <form id="form" action="/props" method="post" novalidate class="px-6">
+      <form
+        id="form"
+        action="/props"
+        method="post"
+        novalidate
+        class="px-6"
+        enctype="multipart/form-data"
+      >
         <div class="relative z-0 w-full mb-5">
           <input
             type="text"
@@ -101,7 +108,7 @@
           >
         </div>
 
-        <div class="relative z-0 w-full mb-5">
+        <!-- <div class="relative z-0 w-full mb-5">
           <input
             type="text"
             name="prop[image]"
@@ -112,6 +119,21 @@
             for="prop[image]"
             class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
             >Enter Image URL</label
+          >
+        </div> -->
+
+        <div class="relative z-0 w-full mb-5">
+          <input
+            type="file"
+            name="prop[image]"
+            placeholder=" "
+            class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none duration-300 top-3 z-10 origin-0 text-gray-500"
+            id="uploadButton"
+          />
+          <label
+            for="prop[image]"
+            class="absolute duration-300 top-3 z-10 origin-0 text-gray-500"
+            >Upload Image</label
           >
         </div>
 

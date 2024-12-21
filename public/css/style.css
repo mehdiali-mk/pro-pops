@@ -1094,6 +1094,10 @@ input[type="range"]::-ms-fill-lower {
   display: block;
 }
 
+.inline-block {
+  display: inline-block;
+}
+
 .inline {
   display: inline;
 }

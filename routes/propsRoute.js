@@ -6,6 +6,10 @@ const ExpressError = require("../utils/ExpressError.js");
 const { joiPropSchema } = require("../joiSchema.js");
 const { isLoggedIn } = require("../middleware.js");
 
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
+
 const propsController = require("../controller/propsController.js");
 
 //! Middleware for validate entries.
@@ -24,7 +28,12 @@ const validatePropsSchema = (request, response, next) => {
 router
   .route("/")
   .get(wrapAsync(propsController.home))
-  .post(isLoggedIn, validatePropsSchema, wrapAsync(propsController.add));
+  .post(
+    isLoggedIn,
+    upload.single("prop[image]"),
+    validatePropsSchema,
+    wrapAsync(propsController.add)
+  );
 
 //* New Route
 router.get("/new", isLoggedIn, wrapAsync(propsController.new));

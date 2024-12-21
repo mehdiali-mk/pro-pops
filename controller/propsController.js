@@ -23,8 +23,13 @@ module.exports.show = async (request, response) => {
 };
 
 module.exports.add = async (request, response, next) => {
+  const url = request.file.path;
+  const fileName = request.file.filename;
+  console.log(request.file.publicId);
   const newProp = new Props(request.body.prop);
+  newProp.image = { url, fileName };
   await newProp.save();
+
   request.flash("success", "New Property has Added!");
   response.redirect("props");
 };

@@ -15,9 +15,11 @@ const propSchema = new Schema({
     required: true,
   },
   image: {
-    type: "String",
-    default: DEFAULT_IMAGE_URL,
-    set: (userValue) => (userValue === "" ? DEFAULT_IMAGE_URL : userValue),
+    // type: "String",
+    // default: DEFAULT_IMAGE_URL,
+    // set: (userValue) => (userValue === "" ? DEFAULT_IMAGE_URL : userValue),
+    url: String,
+    fileName: String,
   },
   price: {
     type: "Number",

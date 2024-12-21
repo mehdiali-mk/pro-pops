@@ -22,8 +22,8 @@
       >
         <img
           class="rounded-lg object-cover h-80 w-full"
-          src="<%= prop.image %>"
-          alt="Property image"
+          src="<%= prop.image.url %>"
+          alt="<%= prop.image.fileName %>"
         />
       </a>
       <div class="pt-4 px-3">
@@ -211,7 +211,6 @@
               >Rating has to be selected</span
             >
           </div>
-
           <!-- 
           <fieldset class="relative z-0 w-full p-px mb-5">
             <legend
