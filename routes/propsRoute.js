@@ -41,7 +41,12 @@ router.get("/new", isLoggedIn, wrapAsync(propsController.new));
 router
   .route("/:id")
   .get(wrapAsync(propsController.show))
-  .put(isLoggedIn, validatePropsSchema, wrapAsync(propsController.update))
+  .put(
+    isLoggedIn,
+    upload.single("prop[image]"),
+    validatePropsSchema,
+    wrapAsync(propsController.update)
+  )
   .delete(isLoggedIn, wrapAsync(propsController.delete));
 
 //* Edit Route

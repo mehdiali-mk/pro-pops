@@ -25,7 +25,7 @@ module.exports.show = async (request, response) => {
 module.exports.add = async (request, response, next) => {
   const url = request.file.path;
   const fileName = request.file.filename;
-  console.log(request.file.publicId);
+
   const newProp = new Props(request.body.prop);
   newProp.image = { url, fileName };
   await newProp.save();
@@ -42,13 +42,28 @@ module.exports.edit = async (request, response) => {
     request.flash("error", "Property does not exist");
     response.redirect("/");
   }
-  response.render("props/edit.ejs", { prop });
+
+  let propImageUrl = prop.image.url;
+  propImageUrl.replace("/upload", "/upload/w_150");
+
+  response.render("props/edit.ejs", { prop, propImageUrl });
 };
 
 module.exports.update = async (request, response) => {
   const { id } = request.params;
   updatedProp = { ...request.body.prop };
-  await Props.findByIdAndUpdate(id, updatedProp);
+  let newProp = await Props.findByIdAndUpdate(id, updatedProp);
+  // newProp.image = { url: "google.com", fileName: "GOOGLE" };
+  // console.log(newProp);
+  // console.log(request.file.url);
+  // console.log(request.file.filename);
+  if (typeof request.file !== "undefined") {
+    const url = request.file.path;
+    const fileName = request.file.filename;
+
+    newProp.image = { url, fileName };
+    await newProp.save();
+  }
   request.flash("success", "Property has Updated!");
   response.redirect(`/props/${id}`);
 };
